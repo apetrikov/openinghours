@@ -1,11 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-export function OpeningHours() {
-  return (
-    <div className="content">
-      123
-    </div>
-  );
+type Props = {
+    header: string,
+    list: Item[]
+}
+
+export function Schedule({header, list}: Props) {
+    return (
+        <div className="content">
+            <div className="header">
+                {header}
+            </div>
+            <ul className="list">
+                {list.map(el => <li>{el.caption}</li>)}
+            </ul>
+        </div>
+    );
 }

@@ -1,12 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { OpeningHours } from './components'
+import { Schedule } from './components'
+
+import list from "./components/OpeningHours/input";
 
 export function App() {
+  // TODO this is only for dev, remove list import!
   return (
     <div className="app">
-      <OpeningHours />
+      <Schedule
+        header="Opening hours"
+        list={list}
+      />
     </div>
   );
 }
