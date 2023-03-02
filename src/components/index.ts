@@ -1,1 +1,1 @@
-export { Schedule } from './OpeningHours'
+export { Schedule } from './Schedule'
