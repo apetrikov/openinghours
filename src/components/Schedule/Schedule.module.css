@@ -1,5 +1,3 @@
-@import './fonts';
-
 .content {
     --black: #202125;
     --white: #FFFFFF;
@@ -8,7 +6,6 @@
     --grey2: #EEEEEE;
     --grey3: #A1A2A4;
 
-    font-family: roboto-local;
     font-weight: 400;
 }
 
