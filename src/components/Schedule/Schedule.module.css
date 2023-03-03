@@ -6,15 +6,42 @@
     --grey2: #EEEEEE;
     --grey3: #A1A2A4;
 
-    font-weight: 400;
+    color: var(--black);
 }
 
 .header {
     font-weight: 700;
+    font-size: 1.5rem;
+    line-height: 1.875rem;
 }
 
 .list {
     font-weight: 500;
     list-style-type: none;
     padding-left: 0;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+}
+
+.caption {
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.375rem;
+}
+
+.marker {
+    font-weight: 700;
+    font-size: 0.75rem;
+    line-height: 1rem;
+
+    color: var(--green);
+}
+
+.value {
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.375rem;
 }
