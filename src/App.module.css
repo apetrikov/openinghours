@@ -5,3 +5,8 @@
 
   background: var(--grey1);
 }
+
+.icon {
+  color: var(--grey2);
+  margin-right: 0.75rem;
+}
