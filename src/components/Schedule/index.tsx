@@ -1,38 +1,28 @@
-import React from 'react';
+import React from 'react'
 import styles from './Schedule.module.css'
+import {ReactComponent as Icon} from './ic-clock.svg'
+import {Row} from './Row'
 
-export type ItemProps = {
-    item: Item
-}
-
-function Row({item}: ItemProps) {
-    const {caption, marker, list} = item
-
-    // return multiple rows
-    // return one row
-    // return one row closed
-    return (
-        <li className={styles.row}>
-            <div className={styles.caption}>{caption}</div>
-            <div className={styles.marker}>{marker}</div>
-            <div className={styles.value}>{list[0]}</div>
-        </li>
-    )
-}
-
-export type ScheduleProps = {
+type ScheduleProps = {
     header: string,
-    list: Item[]
+    items: React.ComponentProps<typeof Row>[]
 }
 
-export function Schedule({header, list}: ScheduleProps) {
+export function Schedule({header, items}: ScheduleProps) {
     return (
         <div className={styles.content}>
             <div className={styles.header}>
-                {header}
+                <Icon className={styles.icon}/>
+                <span className={styles.headerj}>{header}</span>
             </div>
             <ul className={styles.list}>
-                {list.map(item => <Row item={item}/>)}
+                {items.map((item, index) => <Row
+                    key={index}
+                    caption={item.caption}
+                    marker={item.marker}
+                    value={item.value}
+                    isGrey={item.isGrey}
+                />)}
             </ul>
         </div>
     );

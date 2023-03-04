@@ -1,33 +1,35 @@
-const list: Item[] = [
+const items = [
     {
         caption: 'Monday',
-        list: 'Closed',
+        value: 'Closed',
+        isGrey: true
     },
     {
         caption: 'Tuesday',
-        list: ['10 AM - 6 PM'],
+        value: '10 AM - 6 PM',
     },
     {
         caption: 'Wednesday',
-        list: 'Closed',
+        value: 'Closed',
+        isGrey: true
     },
     {
         caption: 'Thursday',
-        list: ['10 AM - 6 PM'],
+        value: '10 AM - 6 PM',
     },
     {
         caption: 'Friday',
-        list: ['10 AM - 1 AM'],
+        value: '10 AM - 1 AM',
         marker: 'TODAY'
     },
     {
         caption: 'Saturday',
-        list: ['10 AM - 1 AM'],
+        value: '10 AM - 1 AM',
     },
     {
         caption: 'Sunday',
-        list: ['12 PM - 9 PM'],
+        value: '12 PM - 9 PM',
     },
 ]
 
-export default list
+export default items

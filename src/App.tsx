@@ -1,16 +1,16 @@
-import React, {ComponentProps} from 'react';
-import './App.css';
+import React from 'react';
+import styles from './App.module.css';
 import {Schedule} from './components'
 
 // TODO this is only for dev, remove list import!
-import list from "./components/Schedule/tests/input";
+import items from "./components/Schedule/tests/input";
 
 export function App() {
     return (
-        <div className="app">
+        <div className={styles.app}>
             <Schedule
-              header="Opening hours"
-              list={list}
+                header="Opening hours"
+                items={items}
             />
         </div>
     );

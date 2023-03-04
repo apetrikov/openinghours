@@ -4,7 +4,7 @@ import {Schedule} from './';
 
 test('renders learn react link', () => {
   const header = 'HEADER'
-  render(<Schedule header={header} list={[]}/>);
+  render(<Schedule header={header} items={[]}/>);
   const element = screen.getByText(header);
   expect(element).toBeInTheDocument();
 });
