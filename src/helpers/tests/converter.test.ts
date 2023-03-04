@@ -57,34 +57,34 @@ const fullWeekInput = (): Input => ({
 
 const fullWeekOutput = (): Item[] => [
     {
-        caption: "monday",
+        caption: "Monday",
         value: "Closed",
         isGrey: true
     },
     {
-        caption: "tuesday",
-        value: "36000 - 64800",
+        caption: "Tuesday",
+        value: "10 AM - 6 PM",
     },
     {
-        caption: "wednesday",
+        caption: "Wednesday",
         value: "Closed",
         isGrey: true
     },
     {
-        caption: "thursday",
-        value: "36000 - 64800",
+        caption: "Thursday",
+        value: "10 AM - 6 PM",
     },
     {
-        caption: "friday",
-        value: "36000 - 3600",
+        caption: "Friday",
+        value: "10 AM - 1 AM",
     },
     {
-        caption: "saturday",
-        value: "36000 - 3600",
+        caption: "Saturday",
+        value: "10 AM - 1 AM",
     },
     {
-        caption: "sunday",
-        value: "43200 - 75600",
+        caption: "Sunday",
+        value: "12 PM - 9 PM",
     }
 ]
 
@@ -97,11 +97,11 @@ describe('convert', () => {
         const multipleInput: OpeningHour[] = [
             {
                 type: "open",
-                value: 16000
+              value: 15840
             },
             {
                 type: "close",
-                value: 24800
+                value: 29580
             },
             {
                 type: "open",
@@ -114,11 +114,11 @@ describe('convert', () => {
         ]
         const multipleOutput: Item[] = [
             {
-                caption: "monday",
-                value: "16000 - 24800",
+                caption: "Monday",
+                value: "4:26 AM - 8:13 AM",
             },
             {
-                value: "36000 - 64800",
+                value: "10 AM - 6 PM",
             },
         ]
         const input = fullWeekInput()

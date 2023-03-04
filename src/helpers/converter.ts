@@ -1,3 +1,5 @@
+import {capitalize, seconds2HH} from "./utils";
+
 const daysOrder: Days[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
 function removeFirstClose(hours: OpeningHour[]): OpeningHour[] {
@@ -12,7 +14,7 @@ function evenToItems(hours: OpeningHour[]): Item[] {
         const close = hours[i + 1]
 
         items.push({
-            value: `${open.value} - ${close.value}`,
+            value: `${seconds2HH(open.value)} - ${seconds2HH(close.value)}`,
         })
     }
 
@@ -24,7 +26,7 @@ export function convert(input: Input): Item[] {
         let hours: OpeningHour[] = removeFirstClose(input[curr])
 
         if (hours.length === 0) return acc.concat({
-            caption: curr,
+            caption: capitalize(curr),
             value: 'Closed',
             isGrey: true
         })
@@ -35,7 +37,7 @@ export function convert(input: Input): Item[] {
         }
 
         const items: Item[] = evenToItems(hours)
-        items[0].caption = curr
+        items[0].caption = capitalize(curr)
 
 
         return acc.concat(items)
