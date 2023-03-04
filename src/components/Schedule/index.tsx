@@ -4,7 +4,7 @@ import {Row} from './Row'
 
 type ScheduleProps = {
     header: string,
-    items: React.ComponentProps<typeof Row>[],
+    items?: React.ComponentProps<typeof Row>[],
     children?: React.ReactNode;
 }
 export function Schedule({children, header, items}: ScheduleProps) {
@@ -16,7 +16,7 @@ export function Schedule({children, header, items}: ScheduleProps) {
                 <span className={styles.headerj}>{header}</span>
             </div>
             <ul className={styles.list}>
-                {items.map((item, index) => <Row
+                {items?.map((item, index) => <Row
                     key={index}
                     caption={item.caption}
                     marker={item.marker}

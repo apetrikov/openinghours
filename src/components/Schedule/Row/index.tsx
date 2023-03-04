@@ -1,12 +1,5 @@
 import styles from './Row.module.css'
 
-type Item = {
-  caption?: string,
-  value?: string,
-  marker?: string,
-  isGrey?: boolean
-}
-
 export function Row({caption, marker, value, isGrey}: Item) {
   let valueClassName = styles.value
   if (isGrey) valueClassName += ' ' + styles.grey
