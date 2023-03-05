@@ -1,10 +1,14 @@
 import {isValidInput} from "./validator";
 
-function simulateEndpoint(input: any): Input | undefined {
-    if (isValidInput(input)) return input
+const inputFileUrl = './input.json'
 
-    console.error('Wrong API input'); // log error
-    return undefined
+export const loadInput = async (): Promise<Input | null> => {
+    const response = await fetch(inputFileUrl);
+    if (!response.ok) {
+        throw new Error(`An error has occured: ${response.status}`);
+    }
+    const json = await response.json();
+
+    if (!isValidInput(json)) return null
+    return json;
 }
-
-export default simulateEndpoint
