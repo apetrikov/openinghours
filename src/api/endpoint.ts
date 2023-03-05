@@ -1,9 +1,9 @@
 import {isValidInput} from "./helpers/validator";
 
-function simulateEndpoint(input: any): Input | null {
-  if ( isValidInput(input) ) return input
+function simulateEndpoint(input: any): Input | never {
+    if (isValidInput(input)) return input
 
-  return null
+    throw new Error('Wrong API responce');
 }
 
 export default simulateEndpoint

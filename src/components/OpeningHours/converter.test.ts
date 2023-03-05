@@ -1,4 +1,4 @@
-import {convert} from "../converter";
+import {convert} from "./converter";
 
 const fullWeekInput = (): Input => ({
     monday: [],

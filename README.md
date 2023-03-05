@@ -45,6 +45,10 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
+unzip
+npm istall
+npm start
+
 
 src/styles are common for the project
 all icons should be in their own component

@@ -1,4 +1,4 @@
-import {capitalize, seconds2HH} from "./utils";
+import {capitalize, seconds2HH} from "../../helpers";
 
 const daysOrder: Days[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
