@@ -15,7 +15,14 @@
 // last is close
 // keys are always open - close order
 // values are numbers between 0 and 86399
+export function isValidInput(input: any): input is Input {
+    if (!input) return false
+    if (typeof input !== 'object' || Array.isArray(input)) return false
+    try {
+        const keys = Object.keys(input)
+    } catch {
+        return false
+    }
 
-export function isValidInput(input: unknown): input is Input {
     return true
 }

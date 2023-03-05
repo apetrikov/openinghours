@@ -1,4 +1,4 @@
-import {isValidInput} from "./helpers/validator";
+import {isValidInput} from "./validator";
 
 function simulateEndpoint(input: any): Input | undefined {
     if (isValidInput(input)) return input

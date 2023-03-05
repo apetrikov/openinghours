@@ -1,7 +1,6 @@
 import React, {FC, PropsWithChildren} from 'react'
 import styles from './Schedule.module.css'
 import {Row} from './Row'
-import items from "./tests/input";
 
 type ScheduleProps = PropsWithChildren<{
     header: string,
