@@ -5,12 +5,10 @@ import {ReactComponent as Icon} from './styles/icons/ic-clock.svg'
 import input from './input/input.json'
 import simulateEndpoint from "./api/endpoint";
 
-const rawInput = simulateEndpoint(input)
-
 export const App = () => (
     <div className={styles.app}>
         <OpeningHours
-            rawInput={rawInput}
+            rawInput={simulateEndpoint(input)}
         >
             <Icon className={styles.icon}/>
         </OpeningHours>

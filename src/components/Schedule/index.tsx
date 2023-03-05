@@ -1,6 +1,7 @@
 import React, {FC, PropsWithChildren} from 'react'
 import styles from './Schedule.module.css'
 import {Row} from './Row'
+import items from "./tests/input";
 
 type ScheduleProps = PropsWithChildren<{
     header: string,
@@ -13,14 +14,28 @@ export const Schedule: FC<ScheduleProps> = ({header, items, children}) => (
             {children}
             <span className={styles.headerj}>{header}</span>
         </div>
-        <ul className={styles.list}>
-            {items.map((item, index) => <Row
-                key={index}
-                caption={item.caption}
-                marker={item.marker}
-                value={item.value}
-                isGrey={item.isGrey}
-            />)}
-        </ul>
+        {items.length
+            ? list(items)
+            : noInfo}
     </div>
 )
+
+const noInfo = (
+    <Row
+        value={'No info available'}
+        isGrey={true}
+    />
+)
+
+const list = (items: Item[]) => (
+    <ul className={styles.list}>
+        {items.map((item, index) => <Row
+            key={index}
+            caption={item.caption}
+            marker={item.marker}
+            value={item.value}
+            isGrey={item.isGrey}
+        />)}
+    </ul>
+)
+

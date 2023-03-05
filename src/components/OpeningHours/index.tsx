@@ -4,15 +4,18 @@ import {convert} from "./converter";
 
 type OpeningHoursProps = PropsWithChildren<{
     header?: string,
-    rawInput: Input,
+    rawInput?: Input,
 }>
 
 const defaultHeader = 'Opening hours'
 export const OpeningHours: FC<OpeningHoursProps> = ({header = defaultHeader, rawInput, children}) => {
+    const items = rawInput
+        ? convert(rawInput)
+        : []
     return (
         <Schedule
             header={header}
-            items={convert(rawInput)}
+            items={items}
             children={children}
         />
     );
