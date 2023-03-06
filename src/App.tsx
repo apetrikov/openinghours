@@ -15,12 +15,12 @@ export const App = () => {
     }, [])
     return (
         <div className={styles.app}>
-                <OpeningHours
-                    rawInput={state}
-                >
-                    <Icon className={styles.icon}/>
-                </OpeningHours
-                >
+            {!!state && <OpeningHours
+                rawInput={state}
+            >
+                <Icon className={styles.icon}/>
+            </OpeningHours
+            >}
         </div>
     )
 }
