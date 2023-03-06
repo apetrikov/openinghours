@@ -8,10 +8,10 @@ type ScheduleProps = PropsWithChildren<{
 }>
 
 export const Schedule: FC<ScheduleProps> = ({header, items, children}) => (
-    <div className={styles.content}>
-        <div className={styles.header}>
+        <div className={styles.content}>
+        <div className={styles.headerBox}>
             {children}
-            <span className={styles.headerj}>{header}</span>
+            <span>{header}</span>
         </div>
         {items.length
             ? list(items)

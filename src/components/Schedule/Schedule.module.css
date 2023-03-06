@@ -11,7 +11,7 @@
     min-width: 20.5rem;
 }
 
-.header {
+.headerBox {
     font-weight: 700;
     font-size: 1.5rem;
     line-height: 1.875rem;
@@ -20,6 +20,10 @@
     padding-bottom: 0.75rem;
 
     border-bottom: 1px solid var(--black);
+
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
 }
 
 .list {
