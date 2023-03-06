@@ -2,13 +2,6 @@ import {capitalize, seconds2HH} from "../../helpers";
 
 const daysOrder: Days[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
-function removeFirstClose(hours: OpeningHour[]): OpeningHour[] {
-    if (hours[0]?.type === 'close') return hours.slice(1)
-    return hours
-}
-
-// TODO removeLastClose if no next element !!!
-
 function evenToItems(hours: OpeningHour[]): Item[] {
     const items: Item[] = []
     for (let i = 0; i < hours.length; i += 2) {
@@ -23,25 +16,45 @@ function evenToItems(hours: OpeningHour[]): Item[] {
     return items
 }
 
+function isOrdered(hours: OpeningHour[]): boolean {
+    return hours.every((el, i, arr) => el.type !== arr[i + 1]?.type)
+}
+
 export function convert(input: Input): Item[] {
-    return daysOrder.reduce((acc, curr, i, arr): Item[] => {
-        let hours: OpeningHour[] = removeFirstClose(input[curr])
+    let items: Item[] = []
 
-        if (hours.length === 0) return acc.concat({
-            caption: capitalize(curr),
-            value: 'Closed',
-            isGrey: true
-        })
+    for (let i = 0; i < daysOrder.length; i++) {
+        let day = daysOrder[i]
+        let currentHours: OpeningHour[] = [...input[day]]
 
-        if (hours.length % 2 === 1) {
-            const nextClose = input[arr[i + 1]][0]
-            hours.push(nextClose)
+        if (currentHours.length === 0) {
+            items.push({
+                caption: capitalize(day),
+                value: 'Closed',
+                isGrey: true,
+            })
+            continue
+        }
+        if (currentHours[0].type === 'close') currentHours = currentHours.slice(1)
+        if (!isOrdered(currentHours)) return [] // log error, return []
+        if (currentHours[currentHours.length - 1].type === 'close') {
+            const res: Item[] = evenToItems(currentHours)
+            res[0].caption = capitalize(day)
+            items.push(...res)
+            continue
         }
 
-        const items: Item[] = evenToItems(hours)
-        items[0].caption = capitalize(curr)
+        const isLastDay: boolean = i === daysOrder.length - 1
+        if (isLastDay) return [] // log error, list is open!
 
+        const firstTimeNextDay = input[daysOrder[i + 1]][0]
+        if (!firstTimeNextDay) return [] // log error
+        if (firstTimeNextDay.type !== 'close') return [] // log error
 
-        return acc.concat(items)
-    }, [] as Item[])
+        const res: Item[] = evenToItems(currentHours.concat(firstTimeNextDay))
+        res[0].caption = capitalize(day)
+        items.push(...res)
+    }
+
+    return items
 }

@@ -89,15 +89,15 @@ const fullWeekOutput = (): Item[] => [
 ]
 
 describe('convert', () => {
-    it('handle full week with next week closing', () => {
+    test('handle full week with next day closing', () => {
         expect(convert(fullWeekInput())).toStrictEqual(fullWeekOutput())
     })
 
-    it('handle full week with multiple working periods', () => {
+    test('handle full week with multiple working periods', () => {
         const multipleInput: OpeningHour[] = [
             {
                 type: "open",
-              value: 15840
+                value: 15840
             },
             {
                 type: "close",
@@ -126,5 +126,124 @@ describe('convert', () => {
         let output = fullWeekOutput()
         output = multipleOutput.concat(output.slice(1))
         expect(convert(input)).toStrictEqual(output)
+    })
+
+    test('for starting with close day ignores close', () => {
+        const startWithClose: OpeningHour[] = [
+            {
+                type: "close",
+                value: 29580
+            },
+            {
+                type: "open",
+                value: 36000
+            },
+            {
+                type: "close",
+                value: 64800
+            }
+        ]
+        const outputWithClose: Item[] = [
+            {
+                caption: "Monday",
+                value: "10 AM - 6 PM",
+            }
+        ]
+        const input = fullWeekInput()
+        input.monday = startWithClose
+        let output = fullWeekOutput()
+        output = outputWithClose.concat(output.slice(1))
+        expect(convert(input)).toStrictEqual(output)
+    })
+
+    test('for unordered open-close list return empty array', () => {
+        const startWithClose: OpeningHour[] = [
+            {
+                type: "open",
+                value: 29580
+            },
+            {
+                type: "open",
+                value: 36000
+            },
+            {
+                type: "close",
+                value: 64800
+            }
+        ]
+        const input = fullWeekInput()
+        input.monday = startWithClose
+        expect(convert(input)).toStrictEqual([])
+    })
+
+    test('for ending with open last day return empty array', () => {
+        const endWithOpen: OpeningHour[] = [
+            {
+                type: "close",
+                value: 3600
+            },
+            {
+                type: "open",
+                value: 43200
+            },
+            {
+                type: "close",
+                value: 75600
+            },
+            {
+                type: "open",
+                value: 78600
+            }
+        ]
+
+        const input = fullWeekInput()
+        input.sunday = endWithOpen
+
+        expect(convert(input)).toStrictEqual([])
+    })
+
+    test('for ending with open day and starting with open return empty array', () => {
+        const endWithOpen: OpeningHour[] = [
+            {
+                type: "close",
+                value: 3600
+            },
+            {
+                type: "open",
+                value: 43200
+            },
+            {
+                type: "close",
+                value: 75600
+            },
+            {
+                type: "open",
+                value: 78600
+            }
+        ]
+        const startWithOpen: OpeningHour[] = [
+            {
+                type: "open",
+                value: 3600
+            },
+            {
+                type: "close",
+                value: 43200
+            },
+            {
+                type: "open",
+                value: 75600
+            },
+            {
+                type: "close",
+                value: 78600
+            }
+        ]
+
+        const input = fullWeekInput()
+        input.monday = endWithOpen
+        input.tuesday = startWithOpen
+
+        expect(convert(input)).toStrictEqual([])
     })
 })
