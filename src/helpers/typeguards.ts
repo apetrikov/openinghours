@@ -48,9 +48,8 @@ export function isInput(input: any): input is Input {
         if (keys.length !== days.length) return false
         if (days.some(day => !keys.includes(day))) return false
 
-        keys.some(key => {
-            if (!isOpeningHours(input[key])) return false
-        })
+        const validHours = keys.every(key => isOpeningHours(input[key]))
+        if (!validHours) return false
     } catch {
         console.error('Invalid API json')
         return false
