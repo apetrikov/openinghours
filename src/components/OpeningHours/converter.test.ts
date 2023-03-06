@@ -246,4 +246,15 @@ describe('convert', () => {
 
         expect(convert(input)).toStrictEqual([])
     })
+
+    test('for today places marker', () => {
+        const input = fullWeekInput()
+        const output = fullWeekOutput()
+        output[1] = {
+            caption: 'Tuesday',
+            marker: 'TODAY',
+            value: '10 AM - 6 PM',
+        }
+        expect(convert(input, 'tuesday')).toStrictEqual(output)
+    })
 })

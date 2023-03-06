@@ -1,12 +1,13 @@
 .app {
-  display: flex;
-  justify-content: center;
-  min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
 
-  background: var(--grey1);
+    background: var(--grey1);
+    min-width: 20rem;
 }
 
 .icon {
-  color: var(--grey2);
-  margin-right: 0.75rem;
+    color: var(--grey2);
+    margin-right: 0.75rem;
 }

@@ -8,10 +8,14 @@ type OpeningHoursProps = PropsWithChildren<{
 }>
 
 const defaultHeader = 'Opening hours'
+const mapGetDateToDays: Days[] = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']
+
 export const OpeningHours: FC<OpeningHoursProps> = ({header = defaultHeader, rawInput, children}) => {
+    const localDay: Days = mapGetDateToDays[(new Date()).getDay()]
     const items = rawInput
-        ? convert(rawInput)
+        ? convert(rawInput, localDay)
         : []
+
     return (
         <Schedule
             header={header}
