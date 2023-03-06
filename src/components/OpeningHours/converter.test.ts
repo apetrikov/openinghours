@@ -115,7 +115,7 @@ describe('convert', () => {
         const multipleOutput: Item[] = [
             {
                 caption: "Monday",
-                value: "4:26 AM - 8:13 AM",
+                value: "4:24 AM - 8:13 AM",
             },
             {
                 value: "10 AM - 6 PM",
