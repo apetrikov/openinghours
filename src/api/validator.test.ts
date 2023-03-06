@@ -1,4 +1,4 @@
-import {isInput, days} from "./validator";
+import {isInput, days, isOpeningHours, MIN_VALUE, MAX_VALUE} from "./validator";
 
 const validFullWeek = (): unknown => ({
     monday: [],
@@ -56,6 +56,10 @@ const validFullWeek = (): unknown => ({
 })
 
 describe('isValidInput', () => {
+    test('for proper input return true', () => {
+        expect(isInput(validFullWeek())).toBe(true)
+    })
+
     test('for primitives return false', () => {
         expect(isInput(undefined)).toBe(false)
         expect(isInput(null)).toBe(false)
@@ -84,19 +88,86 @@ describe('isValidInput', () => {
     test('for wrong day name return false', () => {
         const week = validFullWeek() as Record<string, []>
         delete week[days[0]]
-        const inputWithINvalidDay = {...week, 'wrongDayName': []}
+        const inputWithInvalidDay = {...week, 'wrongDayName': []}
 
-        expect(isInput(inputWithINvalidDay)).toBe(false)
+        expect(isInput(inputWithInvalidDay)).toBe(false)
     })
 
-//    test('for wrong opening hour return false', () => {
-//        const week = validFullWeek() as Record<string, []>
-//        const inputWithINvalidDay = {...week, 'wrongDayName': []}
-//
-//        expect(isInput(inputWithINvalidDay)).toBe(false)
-//    })
+    test('for wrong opening hour return false', () => {
+        const week = validFullWeek() as Record<string, []>
+        const inputWithInvalidDay = {...week, 'wrongDayName': []}
 
-    test('for proper json input return true', () => {
-        expect(isInput(validFullWeek())).toBe(true)
+        expect(isInput(inputWithInvalidDay)).toBe(false)
+    })
+})
+
+const validOpeningHour = (): unknown => [
+    {
+        type: "close",
+        value: 3600
+    },
+    {
+        type: "open",
+        value: 43200
+    },
+    {
+        type: "close",
+        value: 75600
+    },
+    {
+        type: "open",
+        value: 43200
+    },
+]
+
+fdescribe('isOpeningHour', () => {
+    test('for proper input return true', () => {
+        expect(isOpeningHours(validOpeningHour())).toBe(true)
+    })
+
+    test('for not array input return false', () => {
+        expect(isOpeningHours({})).toBe(false)
+    })
+
+    test('for non-object working hours return false', () => {
+        expect(isOpeningHours(['1'])).toBe(false)
+    })
+
+    test('for unspecified type return false', () => {
+        expect(isOpeningHours([{type: 'WRONG_TYPE', value: 0}])).toBe(false)
+    })
+
+    test('for non-number value return false', () => {
+        expect(isOpeningHours([{type: 'close', value: '0'}])).toBe(false)
+    })
+
+    test('for unordered types return false', () => {
+        const unorderedTypes = [
+            {
+                type: "close",
+                value: 0
+            },
+            {
+                type: "open",
+                value: 1
+            },
+            {
+                type: "close",
+                value: 2
+            },
+            {
+                type: "close",
+                value: 3
+            },
+        ]
+        expect(isOpeningHours(unorderedTypes)).toBe(false)
+    })
+
+    test('for values under min return false', () => {
+        expect(isOpeningHours([{type: 'open', value: MIN_VALUE - 1}])).toBe(false)
+    })
+
+    test('for values over max return false', () => {
+        expect(isOpeningHours([{type: 'open', value: MAX_VALUE + 1}])).toBe(false)
     })
 })
