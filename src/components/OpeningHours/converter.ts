@@ -7,6 +7,8 @@ function removeFirstClose(hours: OpeningHour[]): OpeningHour[] {
     return hours
 }
 
+// TODO removeLastClose if no next element !!!
+
 function evenToItems(hours: OpeningHour[]): Item[] {
     const items: Item[] = []
     for (let i = 0; i < hours.length; i += 2) {

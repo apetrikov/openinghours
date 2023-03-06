@@ -1,4 +1,4 @@
-import {isValidInput} from "./validator";
+import {isInput} from "./validator";
 
 const inputFileUrl = './input.json'
 
@@ -9,6 +9,6 @@ export const loadInput = async (): Promise<Input | null> => {
     }
     const json = await response.json();
 
-    if (!isValidInput(json)) return null
+    if (!isInput(json)) return null
     return json;
 }
