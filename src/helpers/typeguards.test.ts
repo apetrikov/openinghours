@@ -1,61 +1,77 @@
-import {isInput, days, isOpeningHours, MIN_VALUE, MAX_VALUE} from "./validator";
+import {isSecondsInDayRange, isOpeningHours, isInput, MAX_VALUE, MIN_VALUE, days} from "./typeguards";
 
-const validFullWeek = (): unknown => ({
-    monday: [],
-    tuesday: [
-        {
-            type: "open",
-            value: 36000
-        },
-        {
-            type: "close",
-            value: 64800
-        }
-    ],
-    wednesday: [],
-    thursday: [
-        {
-            type: "open",
-            value: 36000
-        },
-        {
-            type: "close",
-            value: 64800
-        }
-    ],
-    friday: [
-        {
-            type: "open",
-            value: 36000
-        }
-    ],
-    saturday: [
-        {
-            type: "close",
-            value: 3600
-        },
-        {
-            type: "open",
-            value: 36000
-        }
-    ],
-    sunday: [
-        {
-            type: "close",
-            value: 3600
-        },
-        {
-            type: "open",
-            value: 43200
-        },
-        {
-            type: "close",
-            value: 75600
-        }
-    ]
+describe('isSecondsInDayRange', () => {
+    test('for values in range return true', () => {
+        const numFromRange = (MAX_VALUE - MIN_VALUE) / 2
+        expect(isSecondsInDayRange(numFromRange)).toBe(true)
+    })
+
+    test('for values under min return false', () => {
+        expect(isSecondsInDayRange(MIN_VALUE - 1)).toBe(false)
+    })
+
+    test('for values over max return false', () => {
+        expect(isSecondsInDayRange(MAX_VALUE + 1)).toBe(false)
+    })
 })
 
+
 describe('isValidInput', () => {
+    const validFullWeek = (): unknown => ({
+        monday: [],
+        tuesday: [
+            {
+                type: "open",
+                value: 36000
+            },
+            {
+                type: "close",
+                value: 64800
+            }
+        ],
+        wednesday: [],
+        thursday: [
+            {
+                type: "open",
+                value: 36000
+            },
+            {
+                type: "close",
+                value: 64800
+            }
+        ],
+        friday: [
+            {
+                type: "open",
+                value: 36000
+            }
+        ],
+        saturday: [
+            {
+                type: "close",
+                value: 3600
+            },
+            {
+                type: "open",
+                value: 36000
+            }
+        ],
+        sunday: [
+            {
+                type: "close",
+                value: 3600
+            },
+            {
+                type: "open",
+                value: 43200
+            },
+            {
+                type: "close",
+                value: 75600
+            }
+        ]
+    })
+
     test('for proper input return true', () => {
         expect(isInput(validFullWeek())).toBe(true)
     })
@@ -101,26 +117,26 @@ describe('isValidInput', () => {
     })
 })
 
-const validOpeningHour = (): unknown => [
-    {
-        type: "close",
-        value: 3600
-    },
-    {
-        type: "open",
-        value: 43200
-    },
-    {
-        type: "close",
-        value: 75600
-    },
-    {
-        type: "open",
-        value: 43200
-    },
-]
+describe('isOpeningHour', () => {
+    const validOpeningHour = (): unknown => [
+        {
+            type: "close",
+            value: 3600
+        },
+        {
+            type: "open",
+            value: 43200
+        },
+        {
+            type: "close",
+            value: 75600
+        },
+        {
+            type: "open",
+            value: 43200
+        },
+    ]
 
-fdescribe('isOpeningHour', () => {
     test('for proper input return true', () => {
         expect(isOpeningHours(validOpeningHour())).toBe(true)
     })
@@ -163,11 +179,11 @@ fdescribe('isOpeningHour', () => {
         expect(isOpeningHours(unorderedTypes)).toBe(false)
     })
 
-    test('for values under min return false', () => {
-        expect(isOpeningHours([{type: 'open', value: MIN_VALUE - 1}])).toBe(false)
+    test('for values under 0 return false', () => {
+        expect(isOpeningHours([{type: 'open', value: -1}])).toBe(false)
     })
 
-    test('for values over max return false', () => {
-        expect(isOpeningHours([{type: 'open', value: MAX_VALUE + 1}])).toBe(false)
+    test('for seconds over one day return false', () => {
+        expect(isOpeningHours([{type: 'open', value: 86400}])).toBe(false)
     })
 })

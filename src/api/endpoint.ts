@@ -1,4 +1,4 @@
-import {isInput} from "./validator";
+import {isInput} from "../helpers/typeguards";
 
 const inputFileUrl = './input.json'
 

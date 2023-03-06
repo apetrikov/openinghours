@@ -1,8 +1,13 @@
-export const days: Days[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 export const MIN_VALUE: number = 0
 export const MAX_VALUE: number = 86399
+export const days: Days[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
-// TODO make branding for numbers
+export function isSecondsInDayRange(num: number): num is SecondsInDayRange {
+    if (num < MIN_VALUE) return false
+    if (num > MAX_VALUE) return false
+    return true
+}
+
 
 const isOpeningHour = (value: unknown): value is OpeningHour => {
     const item = value as OpeningHour
@@ -13,11 +18,11 @@ const isOpeningHour = (value: unknown): value is OpeningHour => {
 
     if (typeof item.value !== "number") return false
 
-    if (item.value < MIN_VALUE) return false
-    if (item.value > MAX_VALUE) return false
+    if (!isSecondsInDayRange(item.value)) return false
 
     return true
 }
+
 
 export function isOpeningHours(value: any): value is OpeningHour[] {
     if (!Array.isArray(value)) return false
@@ -32,6 +37,7 @@ export function isOpeningHours(value: any): value is OpeningHour[] {
     }
     return true
 }
+
 
 export function isInput(input: any): input is Input {
     if (!input) return false
