@@ -5,6 +5,8 @@
 
     background: var(--grey1);
     min-width: 20rem;
+
+    padding-top: 1rem;
 }
 
 .icon {

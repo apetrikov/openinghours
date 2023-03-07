@@ -2,6 +2,10 @@ import {capitalize, seconds2HH} from "../../helpers";
 
 const daysOrder: Days[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
 
+// Emulate logger interface
+function logError(str: string): void {
+    console.error(str)
+}
 
 function evenToItems(hours: OpeningHour[]): Item[] {
     const items: Item[] = []
@@ -41,7 +45,10 @@ export function convert(input: Input, localDay?: Days): Item[] {
             continue
         }
         if (currentHours[0].type === 'close') currentHours = currentHours.slice(1)
-        if (!isOrdered(currentHours)) return [] // log error, return []
+        if (!isOrdered(currentHours)) {
+            logError('Input is unordered')
+            return []
+        }
         if (currentHours[currentHours.length - 1].type === 'close') {
             const res: Item[] = evenToItems(currentHours)
             res[0].caption = capitalize(day)
@@ -51,11 +58,20 @@ export function convert(input: Input, localDay?: Days): Item[] {
         }
 
         const isLastDay: boolean = i === daysOrder.length - 1
-        if (isLastDay) return [] // log error, list is open!
+        if (isLastDay) {
+            logError('Last day is not closed')
+            return []
+        }
 
         const firstTimeNextDay = input[daysOrder[i + 1]][0]
-        if (!firstTimeNextDay) return [] // log error
-        if (firstTimeNextDay.type !== 'close') return [] // log error
+        if (!firstTimeNextDay) {
+            logError('Has no closing tomorrow')
+            return []
+        }
+        if (firstTimeNextDay.type !== 'close') {
+            logError('Has no closing tomorrow')
+            return []
+        }
 
         const res: Item[] = evenToItems(currentHours.concat(firstTimeNextDay))
         res[0].caption = capitalize(day)

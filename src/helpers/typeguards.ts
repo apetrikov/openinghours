@@ -32,8 +32,7 @@ export function isOpeningHours(value: any): value is OpeningHour[] {
         const unorderedTypes = value.some((el, i, arr) => el.type === arr[i + 1]?.type)
         if (unorderedTypes) return false
     } catch {
-        console.error('Invalid API json')
-        return false
+        throw new Error(`API response is not valid`);
     }
     return true
 }
@@ -51,8 +50,7 @@ export function isInput(input: any): input is Input {
         const validHours = keys.every(key => isOpeningHours(input[key]))
         if (!validHours) return false
     } catch {
-        console.error('Invalid API json')
-        return false
+        throw new Error(`API response is not valid`);
     }
 
     return true
