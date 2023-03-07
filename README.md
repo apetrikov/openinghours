@@ -6,3 +6,4 @@
 `npm start` - to start
 
 The input file lies in `public/` folder.
+Schedule.fig is a Figma design file
