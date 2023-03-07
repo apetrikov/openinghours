@@ -24,3 +24,8 @@ export const App = () => {
         </div>
     )
 }
+
+//    {
+//      "type": "open",
+//      "value": 36000
+//    }

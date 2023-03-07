@@ -1,4 +1,4 @@
-import {convert} from "./converter";
+import {convert, Marker, Closed} from "./converter";
 
 const fullWeekInput = (): Input => ({
     monday: [],
@@ -58,7 +58,7 @@ const fullWeekInput = (): Input => ({
 const fullWeekOutput = (): Item[] => [
     {
         caption: "Monday",
-        value: "Closed",
+        value: Closed,
         isGrey: true
     },
     {
@@ -67,7 +67,7 @@ const fullWeekOutput = (): Item[] => [
     },
     {
         caption: "Wednesday",
-        value: "Closed",
+        value: Closed,
         isGrey: true
     },
     {
@@ -247,12 +247,25 @@ describe('convert', () => {
         expect(convert(input)).toStrictEqual([])
     })
 
+    test('ignores only one close', () => {
+        const input = fullWeekInput()
+        input.friday = [{type: 'close', value: 3600}]
+        const output = fullWeekOutput()
+        output[4] = {
+            caption: 'Friday',
+            marker: Marker,
+            isGrey: true,
+            value: Closed,
+        }
+        expect(convert(input, 'friday')).toStrictEqual(output)
+    })
+
     test('for today places marker', () => {
         const input = fullWeekInput()
         const output = fullWeekOutput()
         output[1] = {
             caption: 'Tuesday',
-            marker: 'TODAY',
+            marker: Marker,
             value: '10 AM - 6 PM',
         }
         expect(convert(input, 'tuesday')).toStrictEqual(output)

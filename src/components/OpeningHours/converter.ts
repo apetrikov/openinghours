@@ -1,6 +1,8 @@
 import {capitalize, seconds2HH} from "../../helpers";
 
 const daysOrder: Days[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+export const Marker = 'TODAY'
+export const Closed = 'Closed'
 
 // Emulate logger interface
 function logError(str: string): void {
@@ -31,20 +33,20 @@ export function convert(input: Input, localDay?: Days): Item[] {
     for (let i = 0; i < daysOrder.length; i++) {
         let day = daysOrder[i]
         const isToday = day === localDay
-        const marker = isToday ? 'TODAY' : undefined
+        const marker = isToday ? Marker : undefined
         let currentHours: OpeningHour[] = [...input[day]]
 
+        if (currentHours[0]?.type === 'close') currentHours = currentHours.slice(1)
         if (currentHours.length === 0) {
             const item: Item = {
                 caption: capitalize(day),
-                value: 'Closed',
+                value: Closed,
                 isGrey: true,
             }
             if (marker) item.marker = marker
             items.push(item)
             continue
         }
-        if (currentHours[0].type === 'close') currentHours = currentHours.slice(1)
         if (!isOrdered(currentHours)) {
             logError('Input is unordered')
             return []
