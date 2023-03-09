@@ -1,14 +1,14 @@
 .app {
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
 
-    background: var(--grey1);
-    min-width: 20rem;
+  background: var(--grey1);
+  min-width: 20rem;
 
-    padding-top: 1rem;
+  padding-top: 1rem;
 }
 
 .icon {
-    color: var(--grey2);
+  color: var(--grey2);
 }

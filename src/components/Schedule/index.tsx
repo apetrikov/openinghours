@@ -1,40 +1,34 @@
-import React, {FC, PropsWithChildren} from 'react'
+import React, { FC, PropsWithChildren } from 'react'
 import styles from './Schedule.module.css'
-import {Row} from './Row'
+import { Row } from './Row'
 
 type ScheduleProps = PropsWithChildren<{
-    header: string,
-    items: React.ComponentProps<typeof Row>[],
+  header: string
+  items: React.ComponentProps<typeof Row>[]
 }>
 
-export const Schedule: FC<ScheduleProps> = ({header, items, children}) => (
-        <div className={styles.content}>
-        <div className={styles.headerBox}>
-            {children}
-            <span>{header}</span>
-        </div>
-        {items.length
-            ? list(items)
-            : noInfo}
+export const Schedule: FC<ScheduleProps> = ({ header, items, children }) => (
+  <div className={styles.content}>
+    <div className={styles.headerBox}>
+      {children}
+      <span>{header}</span>
     </div>
+    {items.length ? list(items) : noInfo}
+  </div>
 )
 
-const noInfo = (
-    <Row
-        value={'No info available'}
-        isGrey={true}
-    />
-)
+const noInfo = <Row value={'No info available'} isGrey={true} />
 
-const list = (items: Item[]) => (
-    <ul className={styles.list}>
-        {items.map((item, index) => <Row
-            key={index}
-            caption={item.caption}
-            marker={item.marker}
-            value={item.value}
-            isGrey={item.isGrey}
-        />)}
-    </ul>
+const list: FC<Item[]> = (items) => (
+  <ul className={styles.list}>
+    {items.map((item, index) => (
+      <Row
+        key={index}
+        caption={item.caption}
+        marker={item.marker}
+        value={item.value}
+        isGrey={item.isGrey}
+      />
+    ))}
+  </ul>
 )
-

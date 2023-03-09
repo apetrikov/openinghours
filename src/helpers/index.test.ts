@@ -1,4 +1,4 @@
-import {capitalize, seconds2HH} from "./";
+import { capitalize, seconds2HH } from './'
 
 describe('capitalize', () => {
   it('if empty return empty string', () => {
