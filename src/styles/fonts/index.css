@@ -1,17 +1,17 @@
 @font-face {
-  font-family: 'Roboto-local';
   font-weight: 400;
   src: local('Roboto'), url(./Roboto-Regular.ttf) format('truetype');
+  font-family: 'Roboto-local';
 }
 
 @font-face {
-  font-family: 'Roboto-local';
   font-weight: 500;
   src: local('Roboto'), url(./Roboto-Medium.ttf) format('truetype');
+  font-family: 'Roboto-local';
 }
 
 @font-face {
-  font-family: 'Roboto-local';
   font-weight: 700;
   src: local('Roboto'), url(./Roboto-Bold.ttf) format('truetype');
+  font-family: 'Roboto-local';
 }
